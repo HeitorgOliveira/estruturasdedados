@@ -11,7 +11,6 @@ struct no{
 };
 struct abb{
     NO *raiz;
-    int profundidade;
 };
 
 NO *abb_criar_no(ITEM *item){
@@ -22,11 +21,30 @@ NO *abb_criar_no(ITEM *item){
     return no;
 }
 
+int altura(NO *raiz){
+    if (raiz == NULL) return 0;
+    int esquerda = altura(raiz->esq);
+    int direita = altura(raiz->dir);
+    return 1 + (esquerda > direita ? esquerda : direita);
+}
+
+bool eh_balanceada(NO *raiz){
+    if (raiz == NULL) return true;
+    int esquerda = altura(raiz->esq);
+    int direita = altura(raiz->dir);
+    if (abs(direita - esquerda) > 1) return false;
+    return eh_balanceada(raiz->esq) && eh_balanceada(raiz->dir);
+}
+
+bool esta_balanceada(ABB *T){
+    if (T == NULL) return true;
+    return eh_balanceada(T->raiz);
+}
+
 ABB *abb_criar(){
     ABB *abb = (ABB *) malloc(sizeof(ABB));
     if (abb == NULL) return NULL;
     abb->raiz = NULL;
-    abb->profundidade = -1;
     return abb;
 }
 
@@ -79,6 +97,7 @@ bool troca_max_esq(NO *troca, NO* raiz, NO*ant){
         ant->dir = troca->esq;
     }
     raiz->item = troca->item;
+    item_excluir(troca->item);
     free(troca);
     troca = NULL;
 }
@@ -113,7 +132,6 @@ bool abb_remover_aux(NO **raiz, int chave){
         return abb_remover_aux(&(*raiz)->dir, chave);
     }
 }
-
 
 bool abb_excluir_item(ABB **T, int chave){
     if (*T == NULL) return false;
