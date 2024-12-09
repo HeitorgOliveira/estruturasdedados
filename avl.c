@@ -99,3 +99,93 @@ bool avl_inserir(AVL *T, ITEM *item){
     return true;
 }
 
+ITEM *avl_buscar_aux(NO *raiz, int chave){
+    if (raiz == NULL) return NULL;
+    if (item_get_chave(raiz->item) == chave) return raiz->item;
+    if (item_get_chave(raiz->item) > chave) return avl_buscar_aux(raiz->esq, chave);
+    return avl_buscar_aux(raiz->dir, chave);
+}
+
+ITEM *avl_buscar(AVL *T, int chave){
+    if (T == NULL || T->raiz == NULL) return NULL;
+    return avl_busca_aux(T->raiz, chave);
+}
+
+void troca_max_esq(NO *troca, NO *raiz, NO *ant){
+    if (troca->dir != NULL){
+        troca_max_esq(troca->dir, raiz, troca);
+    }
+    else if (raiz == ant){
+        ant->esq = troca->esq;
+    }else{
+        ant->dir = troca->esq;
+    }
+    raiz->item = troca->item;
+    item_excluir(troca->item);
+    free(troca);
+    troca = NULL;
+    return;
+}
+
+bool avl_excluir_aux(NO **raiz, int chave){
+    if (*raiz == NULL) return false;
+    if (item_get_chave((*raiz)->item) > chave){
+        return avl_excluir_aux(&(*raiz)->esq, chave);
+    }
+    else if(item_get_chave((*raiz)->dir) < chave){
+        return avl_excluir_aux(&(*raiz)->dir, chave);
+    }
+    else{
+        NO *p = *raiz;
+        if(p->esq == NULL || p->dir == NULL){
+            if (p->esq == NULL){
+                *raiz = p->dir;
+            }else{
+                *raiz = p->esq;
+            }
+            free(p);
+            p = NULL;
+        }
+        else{
+            troca_max_esq((*raiz)->esq, *raiz, *raiz);
+        }
+        return true;
+    }
+}
+
+bool avl_excluir(AVL *T, int chave){
+    if (T == NULL || T->raiz == NULL) return false;
+    NO *p = T->raiz;
+    return avl_excluir_aux(&p, chave);
+}
+
+bool avl_apagar_aux(NO **raiz){
+    if (*raiz == NULL) return false;
+    avl_apagar_aux(&(*raiz)->esq);
+    avl_apagar_aux(&(*raiz)->dir);
+    item_excluir(&(*raiz)->item);
+    free(*raiz);
+    *raiz = NULL;
+    return true;
+}
+
+bool avl_apagar(AVL **T){
+    if (*T == NULL) return false;
+    return avl_apagar_aux(&(*T)->raiz);
+}
+
+void avl_imprimir_aux(NO *raiz){
+    if (raiz == NULL) return;
+    avl_imprimir_aux(raiz->esq);
+    printf("Raiz: %d\n", item_get_chave(raiz->item));
+    avl_imprimir_aux(raiz->dir);
+}
+
+void avl_imprimir(AVL *T){
+    if (T == NULL || T->raiz == NULL) return;
+    avl_imprimir_aux(T->raiz);
+}
+
+bool pertence(AVL *T, int chave){
+    
+}

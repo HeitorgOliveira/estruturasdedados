@@ -8,5 +8,7 @@
     AVL *avl_criar();
     bool avl_inserir(AVL *T, ITEM *item);
     bool avl_excluir(AVL *T, int chave);
+    ITEM *avl_buscar(AVL *T, int chave);
+    bool avl_apagar(AVL **T);
 
 #endif
