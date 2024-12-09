@@ -1,7 +1,7 @@
 #ifndef CONJUNTO_H
 #define CONJUNTO_H
   #include "avl.h" 
-  #include "RB.h" 
+  #include "rb.h" 
  typedef struct conjunto CONJUNTO;
 
   CONJUNTO *conjunto_criar(unsigned char tipo);
