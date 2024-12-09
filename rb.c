@@ -82,3 +82,44 @@ bool rb_inserir(RB *rb, int chave){
     NO* inserido = rb_inserir_aux(&(rb->raiz), chave);
 
 }
+
+rb_remover_aux(NO** raiz, int chave){
+    if (*raiz == NULL) return NULL;
+    if ((*raiz)->chave == chave) {
+        if ((*raiz)->esquerda == NULL && (*raiz)->direita == NULL) {
+            free(*raiz);
+            *raiz = NULL;
+            return *raiz;
+        }
+        if ((*raiz)->esquerda == NULL) {
+            NO* aux = *raiz;
+            *raiz = (*raiz)->direita;
+            free(aux);
+            return *raiz;
+        }
+        if ((*raiz)->direita == NULL) {
+            NO* aux = *raiz;
+            *raiz = (*raiz)->esquerda;
+            free(aux);
+            return *raiz;
+        }
+        NO* troca = (*raiz)->esquerda;
+        while (troca->direita != NULL) {
+            troca = troca->direita;
+        }
+        (*raiz)->chave = troca->chave;
+        rb_remover_aux(&(*raiz)->esquerda, troca->chave);
+        return *raiz;
+    }
+    if ((*raiz)->chave > chave) {
+        return rb_remover_aux(&(*raiz)->esquerda, chave);
+    }
+    return rb_remover_aux(&(*raiz)->direita, chave);
+}
+
+bool rb_remover(RB *rb, int chave){
+    if (rb == NULL) return false;
+    NO* removido = rb_remover_aux(&(rb->raiz), chave);
+    if (removido == NULL) return false;
+    return true;
+}
