@@ -8,7 +8,7 @@
     RB* rb_criar();
     bool rb_inserir(RB *rb, int chave);
     bool rb_remover(RB *rb, int chave);
-    void rb_apaagar(RB **rb);
+    void rb_apagar(RB **rb);
     void rb_imprimir(RB *rb);
     bool pertence(RB *rb, int chave);
 #endif
