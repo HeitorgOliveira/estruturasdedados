@@ -1,5 +1,5 @@
 run: all
-	valgrind ./main.exe
+ 	./main.exe
 
 all: clean avl ls conjunto main
 	gcc -o main.exe ls.o avl.o conjunto.o main.o

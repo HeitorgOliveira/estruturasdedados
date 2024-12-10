@@ -3,6 +3,7 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <stdbool.h>
+    #include "avl.h"
 
     typedef struct ls LS;
     LS* ls_criar();
