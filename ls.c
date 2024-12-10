@@ -93,7 +93,7 @@ bool ls_remover(LS* ls, int valor){
     return true;
 }
 
-bool ls_buscar(LS* ls, int chave){
+bool pertence(LS* ls, int chave){
     if(ls==NULL) return false;
     int* posicao = malloc(sizeof(int));
     busca_binaria_por_index(ls, chave, &posicao);
@@ -118,4 +118,13 @@ bool ls_insere_em_avl(AVL* avl, LS* ls){
     for(int i=0; i<ls->qtd_itens; i++){
         avl_inserir(avl, ls->vetor[i]);
     }
+}
+
+bool ls_deletar(LS* ls){
+    if(ls==NULL) return false;
+    free(ls->vetor);
+    ls->vetor=NULL;
+    free(ls);
+    ls=NULL;
+    return true;
 }
