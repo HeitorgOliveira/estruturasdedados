@@ -24,7 +24,7 @@ int main(void){
     avl_imprimir(T4);
     printf("----------------------------\n");*/
     
-    LS *ls = ls_criar(10);
+    LS *ls = ls_criar();
     ls_inserir(ls, 70);
     ls_inserir(ls, 90);
     ls_inserir(ls, 40);
@@ -40,6 +40,7 @@ int main(void){
     ls_inserir(ls, 120);
     ls_imprimir(ls);
     ls_remover(ls, 110);
+    ls_remover(ls, 1);
     ls_inserir(ls, 130);
     ls_imprimir(ls);
 }

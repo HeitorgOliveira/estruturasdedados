@@ -44,8 +44,10 @@ bool ls_inserir(LS* ls, int valor){
     int* posicao = malloc(sizeof(int));
     encontrar_posicao_pra_insercao(ls, valor, &posicao);
 
-    if (posicao ==NULL) return false;//ja tem
-
+    if (posicao ==NULL) {
+        printf("Valor %d ja existe\n", valor);
+        return false;//ja tem
+    }
     for (int i = ls->qtd_itens; i > *posicao; i--){
         ls->vetor[i] = ls->vetor[i-1];
     }
@@ -78,7 +80,10 @@ bool ls_remover(LS* ls, int valor){
     int* posicao = malloc(sizeof(int));
     busca_binaria_por_index(ls, valor, &posicao);
 
-    if (posicao == NULL) return false;
+    if (posicao == NULL){
+        printf("Valor %d nao encontrado\n", valor);
+        return false;
+    } 
     for (int i = *posicao; i < ls->qtd_itens - 1; i++){
         ls->vetor[i] = ls->vetor[i+1];
     }
