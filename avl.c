@@ -16,6 +16,13 @@ struct avl{
     NO *raiz;
 };
 
+AVL *avl_criar(){
+    AVL *avl = (AVL*) malloc(sizeof(AVL));
+    if (avl == NULL) return NULL;
+    avl->raiz = NULL;
+    return avl;
+}
+
 NO *avl_cria_no(int numero){
     NO *no = (NO*) malloc(sizeof(NO));
     if (no == NULL) return NULL;
@@ -70,7 +77,7 @@ NO *avl_rotaciona_dupla_direita(NO *no){
 
 NO *avl_inserir_aux(NO *raiz, NO *no){
     if (raiz == NULL){
-        raiz = no;
+        return no;
     }
     else if (raiz->numero > no->numero){
         raiz->esq = avl_inserir_aux(raiz->esq, no);
@@ -79,6 +86,7 @@ NO *avl_inserir_aux(NO *raiz, NO *no){
     }
 
     raiz->FB = altura(raiz->esq) - altura(raiz->dir);
+
     if (raiz->FB == 2){
         if (raiz->esq->FB >= 0) raiz = avl_rotaciona_direita(raiz);
         else raiz = avl_rotaciona_dupla_direita(raiz);
@@ -87,6 +95,7 @@ NO *avl_inserir_aux(NO *raiz, NO *no){
         if (raiz->dir->FB <= 0) raiz = avl_rotaciona_esquerda(raiz);
         else raiz = avl_rotaciona_dupla_esquerda(raiz);
     }
+
     return raiz;
 
 }
@@ -95,13 +104,13 @@ bool avl_inserir(AVL *T, int numero){
     if (T == NULL) return false;
     NO *p = avl_cria_no(numero);
     if (p == NULL) return false;
-    avl_inserir_aux(T->raiz, p);
+    T->raiz = avl_inserir_aux(T->raiz, p);
     return true;
 }
 
 int *avl_buscar_aux(NO *raiz, int chave){
     if (raiz == NULL) return NULL;
-    if (raiz->numero == chave) return raiz->numero;
+    if (raiz->numero == chave) return &(raiz->numero);
     if (raiz->numero > chave) return avl_buscar_aux(raiz->esq, chave);
     return avl_buscar_aux(raiz->dir, chave);
 }
@@ -187,21 +196,47 @@ void avl_imprimir(AVL *T){
     avl_imprimir_aux(T->raiz);
 }
 
-bool pertence(AVL *T, int chave){
+bool avl_pertence(AVL *T, int chave){
     return (avl_buscar(T, chave) != NULL);
 }
 
-void uniao_aux(AVL *T, NO *raiz){
+void avl_uniao_aux(AVL *T, NO *raiz){
     if (raiz == NULL) return;
-    uniao_aux(T, raiz->esq);
+    avl_uniao_aux(T, raiz->esq);
     avl_inserir(T, raiz->numero);
-    uniao_aux(T, raiz->dir);
+    avl_uniao_aux(T, raiz->dir);
 }
 
-AVL *uniao(AVL *T1, AVL *T2){
+AVL *avl_uniao(AVL *T1, AVL *T2){
     AVL *T = avl_criar();
     if (T1 == NULL || T2 == NULL) return T;
-    uniao_aux(T, T1->raiz);
-    uniao_aux(T, T2->raiz);    
+    avl_uniao_aux(T, T1->raiz);
+    avl_uniao_aux(T, T2->raiz);    
     return T;
+}
+
+// Função auxiliar da função de interseccao
+// A função percorre a árvore que contém raiz1 e verifica se seus nós
+// também pertencem à T2 por meio da função pertence. caso o elemento esteja
+// nas duas árvores, inserimos ele na arvore do argumento que será retornada
+AVL *interseccao_aux(NO *raiz1, AVL *T2, AVL *interseccao){
+    if (raiz1 == NULL || T2 == NULL) return interseccao;
+
+    // Aqui os nós que percorremos 
+    if (avl_pertence(T2, raiz1->numero)){
+        avl_inserir(interseccao, raiz1->numero);
+    }
+    interseccao_aux(raiz1->esq, T2, interseccao);
+    interseccao_aux(raiz1->dir, T2, interseccao);
+    return interseccao;
+}
+
+// A função avl_interseccao verifica elementos que estejam contidos tanto em T1 como em T2
+// e insere esses elementos em outra arvore que será retornada pela função.
+AVL *avl_interseccao(AVL *T1, AVL *T2){
+    // Inicializamos a arvore que será retornada
+    AVL *intersec = avl_criar();
+    if (T1 == NULL || T2 == NULL) return intersec;
+    // chamamos a função auxiliar
+    return interseccao_aux(T1->raiz, T2, intersec);
 }
