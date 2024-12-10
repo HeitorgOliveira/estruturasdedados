@@ -25,5 +25,16 @@ int main(void){
     printf("----------------------------\n");*/
     
     LS *ls = ls_criar(10);
-    printf("Posicao: %d\n", encontrar_posicao(ls, 5));
+    ls_inserir(ls, 70);
+    ls_inserir(ls, 90);
+    ls_inserir(ls, 40);
+    ls_inserir(ls, 90);
+    ls_inserir(ls, 100);
+    ls_inserir(ls, 10);
+    ls_inserir(ls, 80);
+    ls_inserir(ls, 60);
+    ls_inserir(ls, 50);
+    ls_imprimir(ls);
+    ls_inserir(ls, 110);
+    ls_imprimir(ls);
 }
