@@ -39,10 +39,10 @@ int main(void){
     ls_inserir(ls, 110);
     ls_inserir(ls, 120);
     ls_imprimir(ls);
-    ls_remover(ls, 110);
-    ls_remover(ls, 1);
+    ls_excluir(ls, 110);
+    ls_excluir(ls, 1);
     ls_inserir(ls, 130);
     ls_imprimir(ls);
 
-    
+
 }

@@ -75,7 +75,7 @@ void busca_binaria_por_index(LS* ls, int valor, int** pos){
 }
 
 
-bool ls_remover(LS* ls, int valor){
+bool ls_excluir(LS* ls, int valor){
     int* posicao = malloc(sizeof(int));
     busca_binaria_por_index(ls, valor, &posicao);
 
@@ -120,7 +120,7 @@ bool ls_insere_em_avl(AVL* avl, LS* ls){
     }
 }
 
-bool ls_deletar(LS* ls){
+bool ls_apagar(LS* ls){
     if(ls==NULL) return false;
     free(ls->vetor);
     ls->vetor=NULL;
