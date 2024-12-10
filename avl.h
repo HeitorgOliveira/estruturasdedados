@@ -7,7 +7,6 @@
     AVL *avl_criar();
     bool avl_inserir(AVL *T, int numero);
     bool avl_excluir(AVL *T, int numero);
-    int *avl_buscar(AVL *T, int numero);
     bool avl_apagar(AVL **T);
     void avl_imprimir(AVL *T);
     AVL *avl_interseccao(AVL *T1, AVL *T2);
