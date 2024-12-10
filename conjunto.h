@@ -5,7 +5,7 @@
  typedef struct conjunto CONJUNTO;
 
   CONJUNTO *conjunto_criar(unsigned char tipo);
-  bool conjunto_inserir (CONJUNTO *s, int elemento);
+  bool conjunto_inserir(CONJUNTO *s, int elemento);
   bool conjunto_remover(CONJUNTO *s, int elemento);
   void conjunto_apagar(CONJUNTO **s);
   void conjunto_imprimir(CONJUNTO *s);

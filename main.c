@@ -43,4 +43,6 @@ int main(void){
     ls_remover(ls, 1);
     ls_inserir(ls, 130);
     ls_imprimir(ls);
+
+    
 }

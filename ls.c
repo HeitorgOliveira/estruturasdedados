@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "ls.h" 
+#include "avl.h"
 
 struct ls{
     int tamanho;
@@ -46,6 +47,7 @@ bool ls_inserir(LS* ls, int valor){
 
     if (posicao ==NULL) {
         printf("Valor %d ja existe\n", valor);
+        free(posicao);
         return false;//ja tem
     }
     for (int i = ls->qtd_itens; i > *posicao; i--){
@@ -53,10 +55,9 @@ bool ls_inserir(LS* ls, int valor){
     }
     ls->vetor[*posicao] = valor;
     ls->qtd_itens++;
+    free(posicao);
     return true;
 }
-
-
 
 void busca_binaria_por_index(LS* ls, int valor, int** pos){
     int inicio = 0;
@@ -74,23 +75,35 @@ void busca_binaria_por_index(LS* ls, int valor, int** pos){
 }
 
 
-
-
 bool ls_remover(LS* ls, int valor){
     int* posicao = malloc(sizeof(int));
     busca_binaria_por_index(ls, valor, &posicao);
 
     if (posicao == NULL){
         printf("Valor %d nao encontrado\n", valor);
+        free(posicao);
         return false;
     } 
     for (int i = *posicao; i < ls->qtd_itens - 1; i++){
         ls->vetor[i] = ls->vetor[i+1];
     }
-    free(posicao);
-    ls->qtd_itens--;
     
+    ls->qtd_itens--;
+    free(posicao);
     return true;
+}
+
+bool ls_buscar(LS* ls, int chave){
+    if(ls==NULL) return false;
+    int* posicao = malloc(sizeof(int));
+    busca_binaria_por_index(ls, chave, &posicao);
+    if (posicao == NULL){
+        free(posicao);
+        return false;
+    }
+    free(posicao);
+    return true;
+
 }
 
 void ls_imprimir(LS* ls){
@@ -98,4 +111,11 @@ void ls_imprimir(LS* ls){
         printf("%d ", ls->vetor[i]);
     }
     printf("\n");
+}
+
+bool ls_insere_em_avl(AVL* avl, LS* ls){
+    if(avl==NULL) return false;
+    for(int i=0; i<ls->qtd_itens; i++){
+        avl_inserir(avl, ls->vetor[i]);
+    }
 }

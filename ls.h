@@ -9,4 +9,5 @@
     bool ls_inserir(LS* ls, int valor);
     void ls_imprimir(LS* ls);
     bool ls_remover(LS* ls, int valor);
+    bool ls_buscar(LS* ls, int chave)
 #endif
