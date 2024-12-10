@@ -48,6 +48,9 @@ bool balanceada(NO *raiz){
     }else return (balanceada(raiz->esq) && balanceada(raiz->dir));
 }
 
+// Abaixo estão as funções mais importantes das árvores AVCL: As rotações.
+// As rotações garantem que o fator de balanceamento da árvore não exceda modulo 1
+
 NO *avl_rotaciona_esquerda(NO *no){
     NO *aux = no->dir;
     no->dir = aux->esq;
@@ -56,6 +59,7 @@ NO *avl_rotaciona_esquerda(NO *no){
     return aux;
 }
 
+// A r
 NO *avl_rotaciona_direita(NO *no){
     NO *aux = no->esq;
     no->esq = aux->dir;
@@ -65,17 +69,24 @@ NO *avl_rotaciona_direita(NO *no){
     return aux;
 }
 
+// Rotação dupla esquerda
 NO *avl_rotaciona_dupla_esquerda(NO *no){
+    // Rotacionamos uma vez para a direita e deopis para e esquerda
     no->dir = avl_rotaciona_direita(no->dir);
     return avl_rotaciona_esquerda(no);
 }
 
+// Rotação dupla direita
 NO *avl_rotaciona_dupla_direita(NO *no){
+    // Simplesmente rotacionamos uma vez para a esquerda e depois rotacionamos para a direita
     no->esq = avl_rotaciona_esquerda(no->esq);
     return avl_rotaciona_direita(no);
 }
 
+// A função auxiliar avl_inserir_aux() insere um nó na árvore AVL e faz as verificações de balanceamento.
+// Caso seja necessário, chamamos as funções responsáveis pela rotação para balancear a árvore.
 NO *avl_inserir_aux(NO *raiz, NO *no){
+    // Inserimos o nó
     if (raiz == NULL){
         return no;
     }
@@ -85,21 +96,31 @@ NO *avl_inserir_aux(NO *raiz, NO *no){
         raiz->dir = avl_inserir_aux(raiz->dir, no);
     }
 
+    // Verificamos o balanceamento
     raiz->FB = altura(raiz->esq) - altura(raiz->dir);
 
+    // Caso o fator de balanceamento (FB = altura da esquerda - altura da direita) seja igual a dois, ou seja, a árvore está
+    // desbalanceada, com o lado esquerdo mais alto que o direito, nós chamamos uma rotação para a direita. Simples ou dupla
     if (raiz->FB == 2){
+        // Caso seu filho esquerdo não esteja com FB = -1, ou seja, não tenha sinais trocados com a raiz, nós chamamos uma
+        // rotação simples para a direita
         if (raiz->esq->FB >= 0) raiz = avl_rotaciona_direita(raiz);
+        // Caso tenham sinais trocados chamamos uma rotação dupla para a direita
         else raiz = avl_rotaciona_dupla_direita(raiz);
     }
+    // Se a árvore estiver com a altura direita maior que a esquerda precisamos fazer uma rotação para a esquerda, seja ela
+    // simples ou dupla
     if (raiz->FB == -2){
+        // Se o sinal de seu filho direito for o mesmo que a raiz, chamaos uma rotação simples para a esquerda
         if (raiz->dir->FB <= 0) raiz = avl_rotaciona_esquerda(raiz);
+        // Se seu filho direito tiver o sinal contrárioà raiz, realizamos uma rotação dupla à direita
         else raiz = avl_rotaciona_dupla_esquerda(raiz);
     }
-
     return raiz;
-
 }
 
+// A função avl_inserir insere na árvore um nó com o número informado pelo usuário
+// Para isso fizemos uso da função auxiliar avl_inserir_aux()
 bool avl_inserir(AVL *T, int numero){
     if (T == NULL) return false;
     NO *p = avl_cria_no(numero);
@@ -108,13 +129,19 @@ bool avl_inserir(AVL *T, int numero){
     return true;
 }
 
+// A função avl_buscar_no_aux() percorre a árvore em in-order procurando pela chave
 int *avl_buscar_aux(NO *raiz, int chave){
     if (raiz == NULL) return NULL;
+    // visita a raiz
     if (raiz->numero == chave) return &(raiz->numero);
+    // percorre a esquerda da árvore
     if (raiz->numero > chave) return avl_buscar_aux(raiz->esq, chave);
+    // percorre a direita da árvore
     return avl_buscar_aux(raiz->dir, chave);
 }
 
+// A função avl_buscar procura por um nó com a chave escolhida e retorna um ponteiro para seu número
+// para isso usamos a função auxiliar avl_buscar_aux()
 int *avl_buscar(AVL *T, int chave){
     if (T == NULL || T->raiz == NULL) return NULL;
     return avl_buscar_aux(T->raiz, chave);
@@ -223,7 +250,7 @@ void avl_imprimir_aux(NO *raiz){
     // percorremos a esquerda da árvore
     avl_imprimir_aux(raiz->esq);
     // Visitamos o nó exibindo o valor de seu número
-    printf("Raiz: %d\n", raiz->numero);
+    printf("Número: %d\n", raiz->numero);
     // percorremos a esquerda da árvore
     avl_imprimir_aux(raiz->dir);
 }
