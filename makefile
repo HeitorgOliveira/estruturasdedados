@@ -1,29 +1,20 @@
-# Compiler
-CC = gcc
+run: all
+	./main.exe
 
-# Compiler flags
-CFLAGS = -Wall -Wextra -std=c11
+all: rb avl conjunto main
+	gcc -o main.exe rb.o avl.o conjunto.o main.o
 
-# Source files
-SRCS = $(wildcard *.c)
+rb:
+	gcc -c rb.c
 
-# Object files
-OBJS = $(SRCS:.c=.o)
+avl: 
+	gcc -c avl.c
 
-# Executable name
-EXEC = main
+conjunto:
+	gcc -c conjunto.c
 
-# Default target
-all: $(EXEC)
+main:
+	gcc -c main.c
 
-# Link object files to create executable
-$(EXEC): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
-
-# Compile source files to object files
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Run the executable
-run: $(EXEC)
-	./$(EXEC)
+clean:
+	rm *.o main.exe
