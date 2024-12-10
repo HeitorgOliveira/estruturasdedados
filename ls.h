@@ -5,7 +5,7 @@
     #include <stdbool.h>
 
     typedef struct ls LS;
-    LS* ls_criar(int tam);
+    LS* ls_criar();
     bool ls_inserir(LS* ls, int valor);
     void ls_imprimir(LS* ls);
     bool ls_remover(LS* ls, int valor);

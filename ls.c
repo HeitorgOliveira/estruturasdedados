@@ -9,7 +9,8 @@ struct ls{
     int* vetor;
 };
 
-LS* ls_criar(int tam){
+LS* ls_criar(){
+    int tam=1000;
     int* vetorNovo = malloc(sizeof(int)*tam);
     LS* lista_sequencial_nova = malloc(sizeof(LS));
     lista_sequencial_nova->vetor = vetorNovo;
@@ -18,60 +19,72 @@ LS* ls_criar(int tam){
     return lista_sequencial_nova;
 }
 
-int encontrar_posicao_pra_insercao(LS* ls, int valor) {
+void encontrar_posicao_pra_insercao(LS* ls, int valor, int** pos) {
     int inicio = 0;
     int fim = ls->qtd_itens - 1;
     
     while (inicio <= fim) {
         int meio = (inicio + fim) / 2;
-        if (ls->vetor[meio] == valor) 
-            return -1;  // valor já existe
+        if (ls->vetor[meio] == valor){  
+            *pos = NULL;
+            return;  // valor já esta na lista
+        }
         else if (ls->vetor[meio] < valor)
             inicio = meio + 1;
         else
             fim = meio - 1;
     }
-    return inicio;
+    **pos = inicio;
 }
 
 bool ls_inserir(LS* ls, int valor){
     if(ls==NULL) return false;
     if (ls->qtd_itens == ls->tamanho) return false;
 
-    int posicao = encontrar_posicao_pra_insercao(ls, valor);
+    int* posicao = malloc(sizeof(int));
+    encontrar_posicao_pra_insercao(ls, valor, &posicao);
 
-    if (posicao == -1) return false;//ja tem
+    if (posicao ==NULL) return false;//ja tem
 
-    for (int i = ls->qtd_itens; i > posicao; i--){
+    for (int i = ls->qtd_itens; i > *posicao; i--){
         ls->vetor[i] = ls->vetor[i-1];
     }
-    ls->vetor[posicao] = valor;
+    ls->vetor[*posicao] = valor;
     ls->qtd_itens++;
     return true;
 }
 
 
 
-int busca_binaria_por_index(LS* ls, int valor){
+void busca_binaria_por_index(LS* ls, int valor, int** pos){
     int inicio = 0;
     int fim = ls->qtd_itens - 1;
     while (inicio <= fim){
         int meio = (inicio + fim) / 2;
-        if (ls->vetor[meio] == valor) return meio;
+        if (ls->vetor[meio] == valor) {
+            **pos = meio;
+            return;
+        }
         else if (ls->vetor[meio] < valor) inicio = meio + 1;
         else fim = meio - 1;
     }
-    return -1;
+    *pos = NULL;
 }
 
 
+
+
 bool ls_remover(LS* ls, int valor){
-    int posicao = busca_binaria_por_index(ls, valor);
-    if (posicao == -1) return false;
-    for (int i = posicao; i < ls->qtd_itens - 1; i++){
+    int* posicao = malloc(sizeof(int));
+    busca_binaria_por_index(ls, valor, &posicao);
+
+    if (posicao == NULL) return false;
+    for (int i = *posicao; i < ls->qtd_itens - 1; i++){
         ls->vetor[i] = ls->vetor[i+1];
     }
+    free(posicao);
     ls->qtd_itens--;
+    
     return true;
 }
 
