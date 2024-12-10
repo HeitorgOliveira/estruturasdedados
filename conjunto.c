@@ -86,6 +86,7 @@ void conjunto_uniao_aux(NO *raiz, LS *ls, AVL *T){
 
 CONJUNTO *conjunto_uniao(CONJUNTO *A, CONJUNTO *B){
     if (A != NULL && B != NULL){
+        
         if (A->avl != NULL && B->avl != NULL){
             CONJUNTO *conjunto = conjunto_criar('A');
             conjunto->avl = avl_uniao(A->avl, B->avl);

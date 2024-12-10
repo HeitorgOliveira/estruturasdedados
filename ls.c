@@ -128,3 +128,27 @@ bool ls_apagar(LS* ls){
     ls=NULL;
     return true;
 }
+
+LS* ls_uniao(LS* A, LS* B){
+    if(A==NULL || B==NULL) return NULL;
+    LS* uniao = ls_criar();
+    for(int i=0; i<A->qtd_itens; i++){
+        ls_inserir(uniao, A->vetor[i]);
+    }
+    for(int i=0; i<B->qtd_itens; i++){
+        ls_inserir(uniao, B->vetor[i]);
+    }
+    return uniao;
+}
+
+LS* ls_interseccao(LS* A, LS* B){
+    if(A==NULL || B==NULL) return NULL;
+    LS* interseccao = ls_criar();
+    for(int i=0; i<A->qtd_itens; i++){
+        if(pertence(B, A->vetor[i])){
+            ls_inserir(interseccao, A->vetor[i]);
+        }
+    }
+    return interseccao;
+}
+

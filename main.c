@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include "avl.h"
 #include "ls.h" 
+#include "conjunto.h"
 
 int main(void){
-    /*AVL *T = avl_criar();
+    AVL *T = avl_criar();
     avl_inserir(T, 1);
     avl_inserir(T, 2);
     avl_inserir(T, 3);
@@ -15,14 +16,9 @@ int main(void){
     avl_inserir(T2, 6);
     avl_inserir(T2, 7);
     avl_inserir(T2, 8);
-    AVL *T3 = avl_uniao(T, T2);
-    printf("--------- Arvore 3 ---------\n");
-    avl_imprimir(T3);
-    printf("----------------------------\n");
-    printf("--------- Arvore 4 ---------\n");
-    AVL *T4 = avl_interseccao(T, T2);
-    avl_imprimir(T4);
-    printf("----------------------------\n");*/
+
+    CONJUNTO* uniao_t1_t2 = conjunto_uniao(T, T2);
+    conjunto_imprimir(uniao_t1_t2);
     
     LS *ls = ls_criar();
     ls_inserir(ls, 70);
@@ -43,6 +39,7 @@ int main(void){
     ls_excluir(ls, 1);
     ls_inserir(ls, 130);
     ls_imprimir(ls);
+
 
 
 }
