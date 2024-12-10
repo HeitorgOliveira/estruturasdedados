@@ -97,6 +97,9 @@ NO *avl_inserir_aux(NO *raiz, NO *no){
     if (raiz == NULL){
         return no;
     }
+    else if(raiz->numero == no->numero){
+        return raiz;
+    }
     else if (raiz->numero > no->numero){
         raiz->esq = avl_inserir_aux(raiz->esq, no);
     }else{

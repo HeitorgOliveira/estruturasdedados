@@ -9,7 +9,7 @@
     LS* ls_criar();
     bool ls_inserir(LS* ls, int valor);
     bool ls_excluir(LS* ls, int valor);
-    bool ls_apagar(LS* ls);
+    bool ls_apagar(LS** ls);
     void ls_imprimir(LS* ls);
     LS* ls_interseccao(LS* A, LS* B);
     LS* ls_uniao(LS* A, LS* B);

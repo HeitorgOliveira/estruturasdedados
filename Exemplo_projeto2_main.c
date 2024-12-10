@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 
   switch(op){
     case 1: {
-              //pertence
+              //ls_pertence
               ...
               break;
     }
