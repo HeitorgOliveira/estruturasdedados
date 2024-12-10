@@ -13,6 +13,6 @@
     void ls_imprimir(LS* ls);
     LS* ls_interseccao(LS* A, LS* B);
     LS* ls_uniao(LS* A, LS* B);
-    bool pertence(LS* ls, int chave);
+    bool ls_pertence(LS* ls, int chave);
     bool ls_insere_em_avl(AVL* avl, LS* ls);
 #endif

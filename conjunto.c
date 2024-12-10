@@ -1,5 +1,6 @@
 #include "avl.h"
 #include "ls.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -56,9 +57,9 @@ bool conjunto_remover(CONJUNTO *s, int elemento){
   void conjunto_apagar(CONJUNTO **s){
     if (*s != NULL){
         if ((*s)->avl != NULL){
-            avl_apagar((*s)->avl);
+            avl_apagar(&(*s)->avl);
         }else{
-            ls_apagar((*s)->ls);
+            ls_apagar(&(*s)->ls);
         }
         free(*s);
         *s = NULL;
@@ -67,13 +68,13 @@ bool conjunto_remover(CONJUNTO *s, int elemento){
 
 void conjunto_imprimir(CONJUNTO *s){
     if (s != NULL){
-        s->avl != NULL ? avl_imprimir(s->avl) : avl_imprimir(s->ls);
+        s->avl != NULL ? avl_imprimir(s->avl) : ls_imprimir(s->ls);
     }
 }
 
 bool conjunto_pertence(CONJUNTO *A, int elemento){
     if (A != NULL){
-        return (A->avl != NULL ? avl_pertence(A, elemento) : ls_pertence(A, elemento));
+        return (A->avl != NULL ? avl_pertence(A->avl, elemento) : ls_pertence(A->ls, elemento));
     }
 }
 
