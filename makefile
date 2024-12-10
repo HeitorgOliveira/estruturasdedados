@@ -2,13 +2,13 @@ run: all
 	./main.exe
 
 all:clean ls avl conjunto main
-	gcc -o main.exe rb.o avl.o conjunto.o main.o
+	gcc -o main.exe ls.o avl.o conjunto.o main.o
 
 ls:
-	gcc -c rb.c
+	gcc -c ls.c
 
 avl: 
-	gcc -c ls.c
+	gcc -c avl.c
 
 conjunto:
 	gcc -c conjunto.c

@@ -24,22 +24,6 @@ int main(void){
     avl_imprimir(T4);
     printf("----------------------------\n");*/
     
-    RB *rb = rb_criar();
-    rb_inserir(rb, 17);
-    rb_inserir(rb, 56);
-    rb_inserir(rb, 43);
-    rb_inserir(rb, 15);
-    rb_inserir(rb, 88);
-    rb_inserir(rb, 45);
-    rb_inserir(rb, 92);
-    rb_inserir(rb, 41);
-    rb_inserir(rb, 33);
-    rb_inserir(rb, 3);
-    rb_inserir(rb, 34);
-    rb_imprimir(rb);
-    rb_remover(rb, 88);
-    rb_remover(rb, 45);
-    rb_remover(rb, 92);
-    rb_remover(rb, 41);
-    rb_remover(rb, 15);
+    LS *ls = ls_criar(10);
+    printf("Posicao: %d\n", encontrar_posicao(ls, 5));
 }

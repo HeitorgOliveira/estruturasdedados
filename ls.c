@@ -3,46 +3,41 @@
 #include <stdbool.h>
 #include "ls.h" 
 
-typedef struct ls{
+struct ls{
     int tamanho;
     int qtd_itens;
     int* vetor;
-}LS;
+};
 
 LS* ls_criar(int tam){
     int* vetorNovo = malloc(sizeof(int)*tam);
+    vetorNovo[0]=0;
+    vetorNovo[1]=1;
+    vetorNovo[2]=2;
+    vetorNovo[3]=3;
+    vetorNovo[4]=4;
+    vetorNovo[5]=6;
+    vetorNovo[6]=7;
+    vetorNovo[7]=8;
+    vetorNovo[8]=9;
+    vetorNovo[9]=10;
+
     LS* lista_sequencial_nova = malloc(sizeof(LS));
     lista_sequencial_nova->vetor = vetorNovo;
     lista_sequencial_nova->tamanho = tam;
-    lista_sequencial_nova->qtd_itens = 0;
+    lista_sequencial_nova->qtd_itens = 10;
 }
-
-int ls_index_do_menor_maior(int* vetor, int comeco, int fim,int num){
-    if(comeco==fim){
-        return -1;
+int encontrar_posicao(LS* ls, int valor){
+    int inicio = 0;
+    int fim = ls->qtd_itens - 1;
+    
+    while (inicio <= fim) {
+        int meio = (inicio + fim) / 2;
+        if (ls->vetor[meio] == valor) return 0;
+        if (ls->vetor[meio] < valor) 
+            inicio = meio + 1;
+        else
+            fim = meio - 1;
     }
-    int meio = (comeco+fim)/2;
-    if(vetor[meio]==num){
-        return meio;
-    }
-    if(vetor[meio]>num){
-        return ls_index_do_menor_maior(vetor,comeco,meio,num);
-    }
-    return ls_index_do_menor_maior(vetor,meio+1,fim,num);
-}
-
-bool ls_inserir(LS* ls, int num){
-    if(ls==NULL){
-        printf("Lista sequencial não alocada\n");
-        return false;
-    }
-    if(ls->qtd_itens==0){
-        return false;
-    }
-    if (ls->qtd_itens == ls->tamanho){
-        ls->tamanho++;
-        ls->vetor = realloc(ls->vetor, sizeof(int)*(ls->tamanho));//como a gente aumentou o tamanho, ele faz o realloc pra por mais um espaço
-    }
-    int index_do_menor_maior  = ls_index_do_menor_maior(ls->vetor,0,ls->qtd_itens, num);
-    return true;
+    return inicio;
 }
