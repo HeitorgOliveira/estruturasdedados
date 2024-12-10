@@ -16,6 +16,7 @@ struct avl{
     NO *raiz;
 };
 
+// A função avl_criar cria uma árvore AVL e a retorna
 AVL *avl_criar(){
     AVL *avl = (AVL*) malloc(sizeof(AVL));
     if (avl == NULL) return NULL;
@@ -23,6 +24,7 @@ AVL *avl_criar(){
     return avl;
 }
 
+// A função avl_cria_no cria um nó com o número informado pelo usuário
 NO *avl_cria_no(int numero){
     NO *no = (NO*) malloc(sizeof(NO));
     if (no == NULL) return NULL;
@@ -32,6 +34,7 @@ NO *avl_cria_no(int numero){
     return no;
 }
 
+// A função altura é uma função auxiliar que retorna a altura de um nó
 int altura(NO *raiz){
     if (raiz == NULL) return 0;
     int esquerda = altura(raiz->esq);
@@ -39,6 +42,7 @@ int altura(NO *raiz){
     return 1 + (direita > esquerda ? direita : esquerda);
 }
 
+// A função balanceada é uma função auxiliar que verifica se a árvore está balanceada ou não
 bool balanceada(NO *raiz){
     if (raiz == NULL) return true;
     int esquerda = altura(raiz->esq);
@@ -48,10 +52,13 @@ bool balanceada(NO *raiz){
     }else return (balanceada(raiz->esq) && balanceada(raiz->dir));
 }
 
-// Abaixo estão as funções mais importantes das árvores AVCL: As rotações.
+// Abaixo estão as funções mais importantes das árvores AVL: As rotações.
 // As rotações garantem que o fator de balanceamento da árvore não exceda modulo 1
+// em geral existem 4 tipos de rotações: As rotações esquerdas, direitas, duplas esquerdas e duplas direitas
 
+// A função avl_rotaciona_esquerda é responsável por rotacionar a árvore para a esquerda
 NO *avl_rotaciona_esquerda(NO *no){
+    // A rotação se baseia em uma troca de vetores, nesse caso fazemos o nó da esquerda trocar de lugar com o da direita
     NO *aux = no->dir;
     no->dir = aux->esq;
     aux->esq = no;
@@ -59,7 +66,7 @@ NO *avl_rotaciona_esquerda(NO *no){
     return aux;
 }
 
-// A r
+// A função avl_rotaciona_direita rotaciona a árvore para a direita
 NO *avl_rotaciona_direita(NO *no){
     NO *aux = no->esq;
     no->esq = aux->dir;
