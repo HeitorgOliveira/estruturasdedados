@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "avl.h"
-#include "rb.h"
+#include "ls.h" 
 
 int main(void){
     /*AVL *T = avl_criar();
