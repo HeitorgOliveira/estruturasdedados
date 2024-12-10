@@ -79,7 +79,7 @@ NO* rb_inserir_balance(NO** raiz, int chave){
 
 bool rb_inserir(RB *rb, int chave){
     if (rb == NULL) return false;
-    NO* inserido = rb_inserir_aux(&(rb->raiz), chave);
+    NO* inserido = rb_inserir_balance(&(rb->raiz), chave);
 
 }
 
