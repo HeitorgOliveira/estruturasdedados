@@ -80,46 +80,116 @@ NO* rb_inserir_balance(NO** raiz, int chave){
 bool rb_inserir(RB *rb, int chave){
     if (rb == NULL) return false;
     NO* inserido = rb_inserir_balance(&(rb->raiz), chave);
-
+    if (inserido == NULL) return false;
+    rb->raiz->vermelho = false; //ter certeza que a raiz é preta
+    return true;
 }
 
-NO* rb_remover_aux(NO** raiz, int chave){
+void rb_remover_fixup(NO** raiz, NO* pai, NO* no) {
+    while (no != *raiz && (no == NULL || !no->vermelho)) {
+        if (no == pai->esquerda) {
+            NO* w = pai->direita;
+            if (w->vermelho) {
+                w->vermelho = false;
+                pai->vermelho = true;
+                pai = rotacao_esquerda(pai);
+                w = pai->direita;
+            }
+            if ((w->esquerda == NULL || !w->esquerda->vermelho) && (w->direita == NULL || !w->direita->vermelho)) {
+                w->vermelho = true;
+                no = pai;
+                pai = NULL; // Update parent
+            } else {
+                if (w->direita == NULL || !w->direita->vermelho) {
+                    if (w->esquerda != NULL) w->esquerda->vermelho = false;
+                    w->vermelho = true;
+                    w = rotacao_direita(w);
+                    w = pai->direita;
+                }
+                w->vermelho = pai->vermelho;
+                pai->vermelho = false;
+                if (w->direita != NULL) w->direita->vermelho = false;
+                pai = rotacao_esquerda(pai);
+                no = *raiz;
+            }
+        } else {
+            NO* w = pai->esquerda;
+            if (w->vermelho) {
+                w->vermelho = false;
+                pai->vermelho = true;
+                pai = rotacao_direita(pai);
+                w = pai->esquerda;
+            }
+            if ((w->direita == NULL || !w->direita->vermelho) && (w->esquerda == NULL || !w->esquerda->vermelho)) {
+                w->vermelho = true;
+                no = pai;
+                pai = NULL; // Update parent
+            } else {
+                if (w->esquerda == NULL || !w->esquerda->vermelho) {
+                    if (w->direita != NULL) w->direita->vermelho = false;
+                    w->vermelho = true;
+                    w = rotacao_esquerda(w);
+                    w = pai->esquerda;
+                }
+                w->vermelho = pai->vermelho;
+                pai->vermelho = false;
+                if (w->esquerda != NULL) w->esquerda->vermelho = false;
+                pai = rotacao_direita(pai);
+                no = *raiz;
+            }
+        }
+    }
+    if (no != NULL) no->vermelho = false;
+}
+NO* rb_remover_aux(NO** raiz, int chave, NO* pai) {
     if (*raiz == NULL) return NULL;
+    NO* removido = NULL;
     if ((*raiz)->chave == chave) {
         if ((*raiz)->esquerda == NULL && (*raiz)->direita == NULL) {
-            free(*raiz);
+            removido = *raiz;
             *raiz = NULL;
-            return *raiz;
-        }
-        if ((*raiz)->esquerda == NULL) {
-            NO* aux = *raiz;
+        } else if ((*raiz)->esquerda == NULL) {
+            removido = *raiz;
             *raiz = (*raiz)->direita;
-            free(aux);
-            return *raiz;
-        }
-        if ((*raiz)->direita == NULL) {
-            NO* aux = *raiz;
+        } else if ((*raiz)->direita == NULL) {
+            removido = *raiz;
             *raiz = (*raiz)->esquerda;
-            free(aux);
-            return *raiz;
+        } else {
+            NO* troca = (*raiz)->esquerda;
+            while (troca->direita != NULL) {
+                troca = troca->direita;
+            }
+            (*raiz)->chave = troca->chave;
+            removido = rb_remover_aux(&(*raiz)->esquerda, troca->chave, *raiz);
         }
-        NO* troca = (*raiz)->esquerda;
-        while (troca->direita != NULL) {
-            troca = troca->direita;
-        }
-        (*raiz)->chave = troca->chave;
-        rb_remover_aux(&(*raiz)->esquerda, troca->chave);
-        return *raiz;
+    } else if ((*raiz)->chave > chave) {
+        removido = rb_remover_aux(&(*raiz)->esquerda, chave, *raiz);
+    } else {
+        removido = rb_remover_aux(&(*raiz)->direita, chave, *raiz);
     }
-    if ((*raiz)->chave > chave) {
-        return rb_remover_aux(&(*raiz)->esquerda, chave);
+    if (removido != NULL && !removido->vermelho) {
+        rb_remover_fixup(raiz, pai, *raiz);
     }
-    return rb_remover_aux(&(*raiz)->direita, chave);
+    return removido;
 }
 
 bool rb_remover(RB *rb, int chave){
     if (rb == NULL) return false;
-    NO* removido = rb_remover_aux(&(rb->raiz), chave);
+    NO* removido = rb_remover_aux(&(rb->raiz), chave, NULL);
     if (removido == NULL) return false;
+    free(removido);
+    if (rb->raiz != NULL) rb->raiz->vermelho = false; // Ensure the root is always black
     return true;
+}
+
+void rb_imprimir_aux(NO* raiz){
+    if (raiz == NULL) return;
+    rb_imprimir_aux(raiz->esquerda);
+    printf("%d ", raiz->chave);
+    rb_imprimir_aux(raiz->direita);
+}
+void rb_imprimir(RB *rb){
+    if (rb == NULL) return;
+    printf("Conjunto: ");
+    rb_imprimir_aux(rb->raiz);
 }

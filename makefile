@@ -1,7 +1,7 @@
 run: all
 	./main.exe
 
-all: rb avl conjunto main
+all:clean rb avl conjunto main
 	gcc -o main.exe rb.o avl.o conjunto.o main.o
 
 rb:
