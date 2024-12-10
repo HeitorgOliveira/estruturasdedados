@@ -18,22 +18,7 @@ LS* ls_criar(int tam){
     return lista_sequencial_nova;
 }
 
-bool ls_inserir(LS* ls, int valor){
-    if(ls==NULL) return false;
-    if (ls->qtd_itens == ls->tamanho) return false;
-
-    int posicao = encontrar_posicao(ls, valor);
-
-    if (posicao == -1) return false;//ja tem
-
-    for (int i = ls->qtd_itens; i > posicao; i--){
-        ls->vetor[i] = ls->vetor[i-1];
-    }
-    ls->vetor[posicao] = valor;
-    ls->qtd_itens++;
-    return true;
-}
-int encontrar_posicao(LS* ls, int valor) {
+int encontrar_posicao_pra_insercao(LS* ls, int valor) {
     int inicio = 0;
     int fim = ls->qtd_itens - 1;
     
@@ -48,6 +33,48 @@ int encontrar_posicao(LS* ls, int valor) {
     }
     return inicio;
 }
+
+bool ls_inserir(LS* ls, int valor){
+    if(ls==NULL) return false;
+    if (ls->qtd_itens == ls->tamanho) return false;
+
+    int posicao = encontrar_posicao_pra_insercao(ls, valor);
+
+    if (posicao == -1) return false;//ja tem
+
+    for (int i = ls->qtd_itens; i > posicao; i--){
+        ls->vetor[i] = ls->vetor[i-1];
+    }
+    ls->vetor[posicao] = valor;
+    ls->qtd_itens++;
+    return true;
+}
+
+
+
+int busca_binaria_por_index(LS* ls, int valor){
+    int inicio = 0;
+    int fim = ls->qtd_itens - 1;
+    while (inicio <= fim){
+        int meio = (inicio + fim) / 2;
+        if (ls->vetor[meio] == valor) return meio;
+        else if (ls->vetor[meio] < valor) inicio = meio + 1;
+        else fim = meio - 1;
+    }
+    return -1;
+}
+
+
+bool ls_remover(LS* ls, int valor){
+    int posicao = busca_binaria_por_index(ls, valor);
+    if (posicao == -1) return false;
+    for (int i = posicao; i < ls->qtd_itens - 1; i++){
+        ls->vetor[i] = ls->vetor[i+1];
+    }
+    ls->qtd_itens--;
+    return true;
+}
+
 void ls_imprimir(LS* ls){
     for (int i = 0; i < ls->qtd_itens; i++){
         printf("%d ", ls->vetor[i]);
