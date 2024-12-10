@@ -4,7 +4,7 @@
 #include "rb.h"
 
 typedef struct no NO;
-typedef struct no{
+struct no{
     NO* esquerda;
     NO*direita;
     bool vermelho;
@@ -83,7 +83,7 @@ bool rb_inserir(RB *rb, int chave){
 
 }
 
-rb_remover_aux(NO** raiz, int chave){
+NO* rb_remover_aux(NO** raiz, int chave){
     if (*raiz == NULL) return NULL;
     if ((*raiz)->chave == chave) {
         if ((*raiz)->esquerda == NULL && (*raiz)->direita == NULL) {
