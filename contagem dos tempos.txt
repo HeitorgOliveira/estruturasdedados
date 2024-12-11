@@ -104,11 +104,9 @@ bool ls_apagar(LS** ls)
 Todas as operações têm tempo linear.
 
 LS* ls_uniao(LS* A, LS* B)
-- O((n_A + n_B) * m), sendo n_A o numero de elementos em A e n_B o número de elementos em B e m o número de elementos na lista união
-
+- O(n_A + n_B), sendo n_A o numero de elementos em A e n_B o número de elementos em B.
+Demora o tempo de inserção de elementos para os n_A elementos de A e para os n_B elementos de B, o que leva a um tempo assintótico de n_A + n_B
 
 LS* ls_interseccao(LS* A, LS* B)
-- log(n_A*log(n_B) + n_A^2), sendo n_A o numero de elementos de A e n_B o número de elementos de B
-
------------------------------------------------------------------------
-
+- log(n_A^2 + n_B^2), sendo n_A o numero de elementos de A e n_B o número de elementos de B
+No pior dos casos teremos o pior tempo de inserção nas duas listas para cada um dos elementos das duas listas.
