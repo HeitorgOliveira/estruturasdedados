@@ -1,3 +1,10 @@
+-------------------------- Modo de utilização do programa -------------------------
+
+Para compilar todo o programa use: make all
+Para rodar o programa use: make run ou ./main
+
+----------------------- Justificativa do uso das estruturas de dados ----------------------
+
 Justificativas para o uso de AVL:
     Decidimos usar a AVL pois foi uma estrutura de dados muito bem estudada durante as aulas,
     o que garantiu uma segurança na confecção dessa estrutura. Além disso a AVL apresenta uma eficiência
