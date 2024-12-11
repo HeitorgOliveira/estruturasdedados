@@ -108,40 +108,42 @@ AVL *avl_interseccao(AVL *T1, AVL *T2)
 
 
 void encontrar_posicao_pra_insercao(LS* ls, int valor, int** pos)
-- O(log(n))
+- O(log2(n))
 corta o vetor na metade a cada iteração, dividindo o tempo de execução pela metade a cada iteração, o que leva a um tempo assintotico de log(n)
 
 bool ls_inserir(LS* ls, int valor)
-- O(n)
+- O(n+log2(n))
 no pior dos casos temos que deslocar o vetor inteiro para a inserção no lugar correto
+chama encontrar_posicao_pra_insercao para saber onde inserir
+PODE haver uma demora nessa funcao se o vetor exceder o tamanho maximo dele, pois há um realloc
 
 void busca_binaria_por_index(LS* ls, int valor, int** pos)
-- O(log(n))
+- O(log2(n))
 leva o tempo de uma busca binaria
 
 bool ls_excluir(LS* ls, int valor)
-- O(n)
-no pior dos casos temos que deslocar todo o vetor, o que leva a um tempo assintótico de O(n)
+- O(n+log2(n))
+no pior dos casos temos que deslocar todo o vetor, porque faz um buraco quando tira no meio, o que leva a um tempo assintótico de O(n)
+chama busca_binaria_por_index para achar onde por o item
 
 bool ls_pertence(LS* ls, int chave)
 - O(log(n))
 A função com maior tempo assintotico presente em ls_pertence é a busca binária, que possui log(n), assim temos um tmepo assintótico de log(n)
 
 void ls_imprimir(LS* ls)
-- O(n)
+- theta(n)
 Acessa cada um dos dados para exibí-lo
 
 bool ls_insere_em_avl(AVL* avl, LS* ls)
 - O(n(log(n) + 1,25))
 para cada um dos n itens, leva o tempo de uma inserção em uma avl, o que leva a equação O = n*log(n + 1,25)
 
-
 bool ls_apagar(LS** ls)
 - O(1)
 Todas as operações têm tempo linear.
 
 LS* ls_uniao(LS* A, LS* B)
-- O(n_A + n_B), sendo n_A o numero de elementos em A e n_B o número de elementos em B.
+- theta(n_A + n_B), sendo n_A o numero de elementos em A e n_B o número de elementos em B.
 Demora o tempo de inserção de elementos para os n_A elementos de A e para os n_B elementos de B, o que leva a um tempo assintótico de n_A + n_B
 
 LS* ls_interseccao(LS* A, LS* B)
