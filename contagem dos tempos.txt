@@ -131,7 +131,7 @@ bool ls_pertence(LS* ls, int chave)
 A função com maior tempo assintotico presente em ls_pertence é a busca binária, que possui log(n), assim temos um tmepo assintótico de log(n)
 
 void ls_imprimir(LS* ls)
-- O(n)
+- theta(n)
 Acessa cada um dos dados para exibí-lo
 
 bool ls_insere_em_avl(AVL* avl, LS* ls)
@@ -143,7 +143,7 @@ bool ls_apagar(LS** ls)
 Todas as operações têm tempo linear.
 
 LS* ls_uniao(LS* A, LS* B)
-- O(n_A + n_B), sendo n_A o numero de elementos em A e n_B o número de elementos em B.
+- theta(n_A + n_B), sendo n_A o numero de elementos em A e n_B o número de elementos em B.
 Demora o tempo de inserção de elementos para os n_A elementos de A e para os n_B elementos de B, o que leva a um tempo assintótico de n_A + n_B
 
 LS* ls_interseccao(LS* A, LS* B)

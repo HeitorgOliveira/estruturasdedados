@@ -65,7 +65,7 @@ bool ls_inserir(LS* ls, int valor){//O(n+log2(n))
     return true;
 }
 
-void busca_binaria_por_index(LS* ls, int valor, int** pos){
+void busca_binaria_por_index(LS* ls, int valor, int** pos){//demora da busca binaria que divide o vetor em 2 cada iteracao O(log2(n))
     int inicio = 0;
     int fim = ls->qtd_itens - 1;
     while (inicio <= fim){
@@ -81,7 +81,8 @@ void busca_binaria_por_index(LS* ls, int valor, int** pos){
 }
 
 
-bool ls_excluir(LS* ls, int valor){
+bool ls_excluir(LS* ls, int valor){//demora da busca binaria que divide o vetor em 2 cada iteracao O(log2(n)) + 
+//a demora de e deslocar (no maximo) n elementos pois pode deixar um buraco, entao o pior caso é O(n+log2(n))
     int* posicao = malloc(sizeof(int));
     busca_binaria_por_index(ls, valor, &posicao);
 
@@ -98,7 +99,7 @@ bool ls_excluir(LS* ls, int valor){
     return true;
 }
 
-bool ls_pertence(LS* ls, int chave){
+bool ls_pertence(LS* ls, int chave){//demora da busca binaria que divide o vetor em 2 cada iteracao O(log2(n))
     if(ls==NULL) return false;
     int* posicao = malloc(sizeof(int));
     busca_binaria_por_index(ls, chave, &posicao);
@@ -115,7 +116,7 @@ void ls_imprimir(LS* ls){
     for (int i = 0; i < ls->qtd_itens; i++){
         printf("%d, ", ls->vetor[i]);
     }
-}
+}//theta(n) percorre o vetor inteiro
 
 bool ls_insere_em_avl(AVL* avl, LS* ls){
     
