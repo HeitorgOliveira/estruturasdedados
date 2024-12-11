@@ -1,3 +1,39 @@
+-------------------------- Modo de utilização do programa -------------------------
+
+Para compilar todo o programa use: make all
+Para rodar o programa use: make run ou ./main
+
+----------------------- Justificativa do uso das estruturas de dados ----------------------
+
+Justificativas para o uso de AVL:
+    Decidimos usar a AVL pois foi uma estrutura de dados muito bem estudada durante as aulas,
+    o que garantiu uma segurança na confecção dessa estrutura. Além disso a AVL apresenta uma eficiência
+    satisfatória para operações de busca, inserção e remoção. Isso se dá à forma como seus elementos estão organizados,
+    o que permite uma busca eficiente de elementos e uma insersão e remoção igualmente eficientes.
+
+    A escolha da AVL no lugar de uma arvore binária de busca se deu principlamente pelas funções de rotação da AVL.
+    que garantem que ela esteja balanceada e com uma altura otimizada, facilitando as funções de busca e consequentemente inserção e remoção.
+
+    Portanto, a AVL garante operações rápidas e de forma eficiente, além de garantir a segurança na implementação por ser uma estrutura conhecida.
+
+
+Justificativas para o uso de uma lista:
+    Optamos por utilizar uma lista devido à familiaridade que temos com essa estrutura de dados
+    que tambem foi vista nas aulas, o que garantiu mais segurança para implementarmos a lista.
+    Além disso, a lista é eficiente para operações como inserção, remoção e busca se os elementos estiverem ordenados.
+
+    A escolha da lista em vez de outras estruturas como pilhas ou filas, foi motivada principalmente pela sua flexibilidade.
+    Diferente de pilhas e filas, que possuem restrições quanto ao acesso aos dados, a lista permite que possamos acessar
+    , inserir ou remover elementos em qualquer posição, o que a torna bastante versátil para diversas operações.
+
+    Usamos a lista também devido à sua rápida função de busca quando está ordenada, que tem um tempo de O(log(n)), o que torna as consultas
+    muito rápidas.
+
+    Assim o uso da lista não só facilita a implementação de soluções de maneira clara e eficiente, mas também oferece uma
+    abordagem simples para manipulação dos dados do problema que estamos resolvendo.
+
+
+----------------------- Complexidade das funções de avl.c ----------------------
 avl_criar()
 - O(1)
 Todas as operações têm tempo linear.
@@ -68,7 +104,8 @@ AVL *avl_interseccao(AVL *T1, AVL *T2)
 - O(n1 * (log(n2) + log(n3)))
 - irá realizar n buscas e possivelmente n inserções. adicionamos também o tempo m comparações e possivelmente m inserções sendo n o numero de elementos na árvores e m o numeor de elmentos na lista
 
--------------------------------------------------------------------
+----------------------- Complexidade das funções de ls.c ----------------------
+
 
 void encontrar_posicao_pra_insercao(LS* ls, int valor, int** pos)
 - O(log(n))
@@ -104,11 +141,10 @@ bool ls_apagar(LS** ls)
 Todas as operações têm tempo linear.
 
 LS* ls_uniao(LS* A, LS* B)
-- O((n_A + n_B) * m), sendo n_A o numero de elementos em A e n_B o número de elementos em B e m o número de elementos na lista união
-
+- O(n_A + n_B), sendo n_A o numero de elementos em A e n_B o número de elementos em B.
+Demora o tempo de inserção de elementos para os n_A elementos de A e para os n_B elementos de B, o que leva a um tempo assintótico de n_A + n_B
 
 LS* ls_interseccao(LS* A, LS* B)
-- log(n_A*log(n_B) + n_A^2), sendo n_A o numero de elementos de A e n_B o número de elementos de B
-
------------------------------------------------------------------------
+- log(n_A^2 + n_B^2), sendo n_A o numero de elementos de A e n_B o número de elementos de B
+No pior dos casos teremos o pior tempo de inserção nas duas listas para cada um dos elementos das duas listas.
 
