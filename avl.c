@@ -42,15 +42,6 @@ int altura(NO *raiz){
     return 1 + (direita > esquerda ? direita : esquerda);
 }
 
-// A função balanceada é uma função auxiliar que verifica se a árvore está balanceada ou não
-bool balanceada(NO *raiz){
-    if (raiz == NULL) return true;
-    int esquerda = altura(raiz->esq);
-    int direita = altura(raiz->dir);
-    if (abs(esquerda - direita) > 1){
-        return false;
-    }else return (balanceada(raiz->esq) && balanceada(raiz->dir));
-}
 
 // Abaixo estão as funções mais importantes das árvores AVL: As rotações.
 // As rotações garantem que o fator de balanceamento da árvore não exceda modulo 1

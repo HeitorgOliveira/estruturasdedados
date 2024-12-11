@@ -1,0 +1,93 @@
+avl_criar()
+- O(1)
+Todas as operações têm tempo linear.
+
+avl_cria_no()
+- O(1)
+Todas as operações têm tempo linear.
+
+int altura() <- da avl
+- O(2h), sendo h a altura da árvore
+ irá executar h vezes uma função com tempo assintótico O(1)
+
+
+NO *avl_rotaciona_esquerda(NO *no)
+- O(1)
+Todas as operações têm tempo linear.
+
+NO *avl_rotaciona_direita(NO *no)
+- O(1)
+Todas as operações têm tempo linear.
+
+NO *avl_rotaciona_dupla_esquerda(NO *no)
+- O(1)
+Todas as operações têm tempo linear.
+
+NO *avl_rotaciona_dupla_direita(NO *no)
+- O(1)
+Todas as operações têm tempo linear.
+
+bool avl_inserir(AVL *T, int numero)
+- O(log(n) + 0,25)
+Realiza uma busca na árvore binária, que tem tempo aproximado de log(n) + 0,25 e insere
+
+int *avl_buscar(AVL *T, int chave)
+- O(log(n))
+Tomei como referência os slides e anotações apresentados em aulas.
+
+void troca_max_esq(NO *troca, NO *raiz, NO *ant)
+- O(log(n))
+
+
+bool avl_excluir(AVL *T, int chave)
+- O(h), onde h é a altura da árvore
+
+bool avl_apagar(AVL **T)
+- O(n)
+
+void avl_imprimir(AVL *T)
+- O(n)
+
+bool avl_pertence(AVL *T, int chave)
+- O(log(n))
+
+AVL *uniao(NO *raiz1, AVL *T2, AVL *interseccao)
+- O(n1log(n1) + n2log(n2))
+
+AVL *avl_interseccao(AVL *T1, AVL *T2)
+- O(n1 * (log(n2) + log(n3)))
+
+-------------------------------------------------------------------
+
+void encontrar_posicao_pra_insercao(LS* ls, int valor, int** pos)
+- O(log(n))
+
+bool ls_inserir(LS* ls, int valor)
+- O(n)
+
+void busca_binaria_por_index(LS* ls, int valor, int** pos)
+- O(log(n))
+
+bool ls_excluir(LS* ls, int valor)
+- O(n)
+
+bool ls_pertence(LS* ls, int chave)
+- O(log(n))
+
+void ls_imprimir(LS* ls)
+- O(n)
+
+bool ls_insere_em_avl(AVL* avl, LS* ls)
+- O(nlog(n))
+
+bool ls_apagar(LS** ls)
+- O(1)
+
+LS* ls_uniao(LS* A, LS* B)
+- O((n_A + n_B) * m), sendo n_A o numero de elementos em A e n_B o número de elementos em B e m o número de elementos na lista união
+
+LS* ls_interseccao(LS* A, LS* B)
+- log(n_A*log(n_B) + n_A^2), sendo n_A o numero de elementos de A e n_B o número de elementos de B
+
+-----------------------------------------------------------------------
+
