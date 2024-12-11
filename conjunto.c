@@ -43,13 +43,10 @@ CONJUNTO *conjunto_criar(unsigned char tipo){
 }
 void verificar_se_tem_ls(CONJUNTO* s){
     if(s==NULL){
-        printf("s=NULL\n");
         return;
     }
     if(s->ls){
-        printf("tem ls\n");
     }
-    printf("nao tem ls\n");
 }
 bool conjunto_inserir (CONJUNTO *s, int elemento){
     if (s != NULL){
@@ -137,7 +134,6 @@ void conjunto_interseccao_aux(NO *raiz, LS *ls, AVL *T){
 }
 
 CONJUNTO *conjunto_interseccao(CONJUNTO *A, CONJUNTO *B) {
-    // Handle NULL cases
     if (A == NULL || B == NULL) {
         printf("nulos\n");
         return NULL;
@@ -145,22 +141,17 @@ CONJUNTO *conjunto_interseccao(CONJUNTO *A, CONJUNTO *B) {
 
     CONJUNTO *conjunto = NULL;
 
-    // Case 1: Both are AVL trees
     if (A->avl != NULL && B->avl != NULL) {
         printf("os dois sao avl\n");
         conjunto = conjunto_criar('A');
         conjunto->avl = avl_interseccao(A->avl, B->avl);
     }
-    // Case 2: Both are linked lists
     else if (A->ls != NULL && B->ls != NULL) {
-        printf("os dois sao lista\n");
         conjunto = conjunto_criar('L');
         conjunto->ls = ls_interseccao(A->ls, B->ls);
     }
-    // Case 3: Mixed representation (AVL and List)
     else if ((A->avl != NULL && B->ls != NULL) || 
              (A->ls != NULL && B->avl != NULL)) {
-        printf("um é e o outro noa é");
         conjunto = conjunto_criar('A');
         AVL *T = avl_criar();
         
@@ -171,7 +162,6 @@ CONJUNTO *conjunto_interseccao(CONJUNTO *A, CONJUNTO *B) {
         }
         conjunto->avl = T;
     }else{
-        printf("nada\n");
     }
     return conjunto;
 }

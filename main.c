@@ -18,18 +18,11 @@ int main(void){
     conjunto_inserir(CT2, 7);
     conjunto_inserir(CT2, 8);
     conjunto_imprimir(CT1);
-    printf("\n");
     conjunto_imprimir(CT2);
     
     
 
-    printf("\nT1\n");
-    CONJUNTO* interseccao_t1_t2 = conjunto_interseccao(CT1, CT2);
-    
+    CONJUNTO* interseccao_t1_t2 = conjunto_uniao(CT1, CT2);
     conjunto_imprimir(interseccao_t1_t2);
     
-    printf("T1\n");
-
-
-
 }
