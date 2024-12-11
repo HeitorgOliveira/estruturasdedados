@@ -154,7 +154,6 @@ void conjunto_interseccao_aux(NO *raiz, LS *ls, AVL *T){
     if (T == NULL || raiz == NULL) return;
     if (ls_pertence(ls, raiz->numero)){
         avl_inserir(T, raiz->numero);
-        printf("Inserindo %d\n", raiz->numero);
     }
     conjunto_interseccao_aux(raiz->esq, ls, T);
     conjunto_interseccao_aux(raiz->dir, ls, T);
@@ -166,7 +165,6 @@ void conjunto_interseccao_aux(NO *raiz, LS *ls, AVL *T){
 // Em caso de ambiguidade (arvore e lista) optamos por retornar uma arvore
 CONJUNTO *conjunto_interseccao(CONJUNTO *A, CONJUNTO *B) {
     if (A == NULL || B == NULL) {
-        printf("nulos\n");
         return NULL;
     }
 
@@ -174,7 +172,6 @@ CONJUNTO *conjunto_interseccao(CONJUNTO *A, CONJUNTO *B) {
 
     // Se ambos os conjuntos forem AVLs, simplesmente chamamos a função de intersecção entre AVLs
     if (A->avl != NULL && B->avl != NULL) {
-        printf("os dois sao avl\n");
         conjunto = conjunto_criar('A');
         conjunto->avl = avl_interseccao(A->avl, B->avl);
     }

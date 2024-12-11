@@ -48,7 +48,6 @@ bool ls_inserir(LS* ls, int valor){
     encontrar_posicao_pra_insercao(ls, valor, &posicao);//O(log2(n))
 
     if (posicao ==NULL) {//se ja existe
-        printf("Valor %d ja existe\n", valor);
         free(posicao);
         return false;
     }
@@ -84,7 +83,6 @@ bool ls_excluir(LS* ls, int valor){
     busca_binaria_por_index(ls, valor, &posicao);
 
     if (posicao == NULL){
-        printf("Valor %d nao encontrado\n", valor);
         free(posicao);
         return false;
     } 
@@ -114,7 +112,6 @@ void ls_imprimir(LS* ls){
     for (int i = 0; i < ls->qtd_itens; i++){
         printf("%d, ", ls->vetor[i]);
     }
-    printf("\n");
 }
 
 bool ls_insere_em_avl(AVL* avl, LS* ls){

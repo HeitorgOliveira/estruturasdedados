@@ -4,13 +4,13 @@
 #include "ls.h" 
 #include "conjunto.h"
 int main(void){
+    
     CONJUNTO *CT1, *CT2;
     int n_a, n_b, x;
     int operacao;
     int tipo;
     unsigned char c;
 
-    printf("Digite o tipo de conjunto que deseja criar: '0' para AVL e '1' para Lista Sequencial\n");
     scanf("%d", &tipo);
     if(tipo==0){
         c = 'A';

@@ -1,7 +1,7 @@
-run: all
-	./main.exe < ../casos_teste/8.in
+run:
+	./main.exe
 
-all: clean ls avl conjunto main
+all: ls avl conjunto main
 	gcc -o main.exe ls.o avl.o conjunto.o main.o
 
 ls:
