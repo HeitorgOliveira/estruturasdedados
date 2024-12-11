@@ -1,0 +1,114 @@
+avl_criar()
+- O(1)
+Todas as operações têm tempo linear.
+
+avl_cria_no()
+- O(1)
+Todas as operações têm tempo linear.
+
+int altura() <- da avl
+- O(2h), sendo h a altura da árvore
+ irá executar h vezes uma função com tempo assintótico O(1)
+
+
+NO *avl_rotaciona_esquerda(NO *no)
+- O(1)
+Todas as operações têm tempo linear.
+
+NO *avl_rotaciona_direita(NO *no)
+- O(1)
+Todas as operações têm tempo linear.
+
+NO *avl_rotaciona_dupla_esquerda(NO *no)
+- O(1)
+Todas as operações têm tempo linear.
+
+NO *avl_rotaciona_dupla_direita(NO *no)
+- O(1)
+Todas as operações têm tempo linear.
+
+bool avl_inserir(AVL *T, int numero)
+- O(log(n) + 1,25)
+Realiza uma busca na árvore binária, que tem tempo aproximado de log(n) + 0,25 e insere
+
+int *avl_buscar(AVL *T, int chave)
+- O(log(n))
+Tomei como referência os slides e anotações apresentados em aulas.
+
+void troca_max_esq(NO *troca, NO *raiz, NO *ant)
+- O(h), sendo h o numero de filhos direitos de troca
+A função chama a sí mesma h vezes. Cada chamada tem tempo O(1)
+
+
+bool avl_excluir(AVL *T, int chave)
+- O(log(n) + 1,25)
+Leva o tempo de busca em uma árvore balanceada + o tempo de remoção
+caso caia no caso em que o nó tenha dois filhos, o tempo é de
+O(log(n) + h + 1,25)
+
+bool avl_apagar(AVL **T)
+- O(n)
+- O(1) para cada um dos nós para remover da árvore
+
+void avl_imprimir(AVL *T)
+- O(n)
+Imprime cada nó visitando eles
+
+bool avl_pertence(AVL *T, int chave)
+- O(log(n) + 0,25)
+no pior dos casos vai percorrer a altura da árvore e ver que o elemento não pertence
+
+
+AVL *uniao(NO *raiz1, AVL *T2, AVL *interseccao)
+- O(n1log(n1) + n2log(n2)), sendo n1 o número de nos de raiz1 e n2 o número de nós de T2
+como a inserção leva um tempo de log(n), temos um tempo de log(n) para n nós, o que leva a um tempo de nlog(n)
+
+
+AVL *avl_interseccao(AVL *T1, AVL *T2)
+- O(n1 * (log(n2) + log(n3)))
+- irá realizar n buscas e possivelmente n inserções. adicionamos também o tempo m comparações e possivelmente m inserções sendo n o numero de elementos na árvores e m o numeor de elmentos na lista
+
+-------------------------------------------------------------------
+
+void encontrar_posicao_pra_insercao(LS* ls, int valor, int** pos)
+- O(log(n))
+corta o vetor na metade a cada iteração, dividindo o tempo de execução pela metade a cada iteração, o que leva a um tempo assintotico de log(n)
+
+bool ls_inserir(LS* ls, int valor)
+- O(n)
+no pior dos casos temos que deslocar o vetor inteiro para a inserção no lugar correto
+
+void busca_binaria_por_index(LS* ls, int valor, int** pos)
+- O(log(n))
+leva o tempo de uma busca binaria
+
+bool ls_excluir(LS* ls, int valor)
+- O(n)
+no pior dos casos temos que deslocar todo o vetor, o que leva a um tempo assintótico de O(n)
+
+bool ls_pertence(LS* ls, int chave)
+- O(log(n))
+A função com maior tempo assintotico presente em ls_pertence é a busca binária, que possui log(n), assim temos um tmepo assintótico de log(n)
+
+void ls_imprimir(LS* ls)
+- O(n)
+Acessa cada um dos dados para exibí-lo
+
+bool ls_insere_em_avl(AVL* avl, LS* ls)
+- O(n(log(n) + 1,25))
+para cada um dos n itens, leva o tempo de uma inserção em uma avl, o que leva a equação O = n*log(n + 1,25)
+
+
+bool ls_apagar(LS** ls)
+- O(1)
+Todas as operações têm tempo linear.
+
+LS* ls_uniao(LS* A, LS* B)
+- O((n_A + n_B) * m), sendo n_A o numero de elementos em A e n_B o número de elementos em B e m o número de elementos na lista união
+
+
+LS* ls_interseccao(LS* A, LS* B)
+- log(n_A*log(n_B) + n_A^2), sendo n_A o numero de elementos de A e n_B o número de elementos de B
+
+-----------------------------------------------------------------------
+
