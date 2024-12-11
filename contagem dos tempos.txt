@@ -1,3 +1,7 @@
+Nome dos integrantes:
+Nome: Heitor Gomes de Oliviera - No Usp: 15458350
+Nome: Newton eduardo Pena Villegas - No USP: 15481732
+
 -------------------------- Modo de utilização do programa -------------------------
 
 Para compilar todo o programa use: make all
