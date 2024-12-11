@@ -127,9 +127,9 @@ bool ls_insere_em_avl(AVL* avl, LS* ls){
         avl_inserir(avl, ls->vetor[i]);
         
     }
-}
+}//theta(n+log2(n) + 1,25) percorre o vetor inteiro vezes + insere na arvore
 
-bool ls_apagar(LS** ls){
+bool ls_apagar(LS** ls){//O(1) constante
     if(*ls==NULL) return false;
     free((*ls)->vetor);
     (*ls)->vetor=NULL;
@@ -149,7 +149,13 @@ LS* ls_uniao(LS* A, LS* B){
     }
     return uniao;
 }
+/*
+- theta(n_A + n_B), sendo n_A o numero de elementos em A e n_B o número de elementos em B.
+Demora o tempo de inserção de elementos para os n_A elementos de A e para os n_B elementos de B, o que leva a um tempo assintótico de n_A + n_B*/
 
+/*
+- log(n_A^2 + n_B^2), sendo n_A o numero de elementos de A e n_B o número de elementos de B
+No pior dos casos teremos o pior tempo de inserção nas duas listas para cada um dos elementos das duas listas.*/
 LS* ls_interseccao(LS* A, LS* B){
     if(A==NULL || B==NULL) return NULL;
     LS* interseccao = ls_criar();

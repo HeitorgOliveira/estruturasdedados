@@ -64,11 +64,11 @@ NO *avl_rotaciona_dupla_direita(NO *no)
 Todas as operações têm tempo linear.
 
 bool avl_inserir(AVL *T, int numero)
-- O(log(n) + 1,25)
+- O(log2(n) + 1,25)
 Realiza uma busca na árvore binária, que tem tempo aproximado de log(n) + 0,25 e insere
 
 int *avl_buscar(AVL *T, int chave)
-- O(log(n))
+- O(log2(n))
 Tomei como referência os slides e anotações apresentados em aulas.
 
 void troca_max_esq(NO *troca, NO *raiz, NO *ant)
@@ -77,10 +77,10 @@ A função chama a sí mesma h vezes. Cada chamada tem tempo O(1)
 
 
 bool avl_excluir(AVL *T, int chave)
-- O(log(n) + 1,25)
+- O(log2(n) + 1,25)
 Leva o tempo de busca em uma árvore balanceada + o tempo de remoção
 caso caia no caso em que o nó tenha dois filhos, o tempo é de
-O(log(n) + h + 1,25)
+O(log2(n) + h + 1,25)
 
 bool avl_apagar(AVL **T)
 - O(n)
@@ -91,17 +91,17 @@ void avl_imprimir(AVL *T)
 Imprime cada nó visitando eles
 
 bool avl_pertence(AVL *T, int chave)
-- O(log(n) + 0,25)
+- O(log2(n) + 0,25)
 no pior dos casos vai percorrer a altura da árvore e ver que o elemento não pertence
 
 
 AVL *uniao(NO *raiz1, AVL *T2, AVL *interseccao)
-- O(n1log(n1) + n2log(n2)), sendo n1 o número de nos de raiz1 e n2 o número de nós de T2
+- O(n1log2(n1) + n2log(n2)), sendo n1 o número de nos de raiz1 e n2 o número de nós de T2
 como a inserção leva um tempo de log(n), temos um tempo de log(n) para n nós, o que leva a um tempo de nlog(n)
 
 
 AVL *avl_interseccao(AVL *T1, AVL *T2)
-- O(n1 * (log(n2) + log(n3)))
+- O(n1 * (log2(n2) + log2(n3)))
 - irá realizar n buscas e possivelmente n inserções. adicionamos também o tempo m comparações e possivelmente m inserções sendo n o numero de elementos na árvores e m o numeor de elmentos na lista
 
 ----------------------- Complexidade das funções de ls.c ----------------------
