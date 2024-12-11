@@ -40,9 +40,12 @@ void encontrar_posicao_pra_insercao(LS* ls, int valor, int** pos) {//busca biná
     **pos = inicio;
 }
 
-bool ls_inserir(LS* ls, int valor){
+bool ls_inserir(LS* ls, int valor){//O(n+log2(n))
     if(ls==NULL) return false;
-    if (ls->qtd_itens == ls->tamanho) return false;
+    if (ls->qtd_itens == ls->tamanho) {
+        ls->tamanho *= 2;
+        ls->vetor = realloc(ls->vetor, sizeof(int) * ls->tamanho);//dobra o tamanho para insercao nova
+    };
 
     int* posicao = malloc(sizeof(int));
     encontrar_posicao_pra_insercao(ls, valor, &posicao);//O(log2(n))
@@ -53,7 +56,7 @@ bool ls_inserir(LS* ls, int valor){
     }
 
     for (int i = ls->qtd_itens; i > *posicao; i--){// while para mover os elementos para a direita, se posicao for
-    // 0, o pior caso, ele vai ter que mover todos os elementos
+    // 0, o pior caso, ele vai ter que mover todos os elementos entao seria O(n)
         ls->vetor[i] = ls->vetor[i-1];
     }
     ls->vetor[*posicao] = valor;
