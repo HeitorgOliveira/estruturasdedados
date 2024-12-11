@@ -10,8 +10,8 @@ struct ls{
     int* vetor;
 };
 
-LS* ls_criar(){
-    int tam=100;
+LS* ls_criar(){//criamos uma lista sequencial com um malloc de 1000 inteiros já que não foi especificado se a memória é crítica ou não o(1)
+    int tam=1000;
     int* vetorNovo = malloc(sizeof(int)*tam);
     LS* lista_sequencial_nova = malloc(sizeof(LS));
     lista_sequencial_nova->vetor = vetorNovo;
@@ -21,7 +21,7 @@ LS* ls_criar(){
     return lista_sequencial_nova;
 }
 
-void encontrar_posicao_pra_insercao(LS* ls, int valor, int** pos) {
+void encontrar_posicao_pra_insercao(LS* ls, int valor, int** pos) {//busca binária para encontrar a posição de inserção
     int inicio = 0;
     int fim = ls->qtd_itens - 1;
     
@@ -35,7 +35,8 @@ void encontrar_posicao_pra_insercao(LS* ls, int valor, int** pos) {
             inicio = meio + 1;
         else
             fim = meio - 1;
-    }
+    }//cada iteração do while divide o vetor em 2 partes, entao o pior caso é quando o vetor achao o valor na
+    // ultima iteração, que é log2(n) ja que a quantidade de iteracoes é o numero que se elevar o dois dá a quantidade de nós
     **pos = inicio;
 }
 
@@ -44,14 +45,16 @@ bool ls_inserir(LS* ls, int valor){
     if (ls->qtd_itens == ls->tamanho) return false;
 
     int* posicao = malloc(sizeof(int));
-    encontrar_posicao_pra_insercao(ls, valor, &posicao);
+    encontrar_posicao_pra_insercao(ls, valor, &posicao);//O(log2(n))
 
-    if (posicao ==NULL) {
+    if (posicao ==NULL) {//se ja existe
         printf("Valor %d ja existe\n", valor);
         free(posicao);
-        return false;//ja tem
+        return false;
     }
-    for (int i = ls->qtd_itens; i > *posicao; i--){
+
+    for (int i = ls->qtd_itens; i > *posicao; i--){// while para mover os elementos para a direita, se posicao for
+    // 0, o pior caso, ele vai ter que mover todos os elementos
         ls->vetor[i] = ls->vetor[i-1];
     }
     ls->vetor[*posicao] = valor;
@@ -109,7 +112,7 @@ bool ls_pertence(LS* ls, int chave){
 
 void ls_imprimir(LS* ls){
     for (int i = 0; i < ls->qtd_itens; i++){
-        printf("%d ", ls->vetor[i]);
+        printf("%d, ", ls->vetor[i]);
     }
     printf("\n");
 }

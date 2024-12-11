@@ -251,7 +251,7 @@ void avl_imprimir_aux(NO *raiz){
     // percorremos a esquerda da árvore
     avl_imprimir_aux(raiz->esq);
     // Visitamos o nó exibindo o valor de seu número
-    printf("%d ", raiz->numero);
+    printf("%d, ", raiz->numero);
     // percorremos a esquerda da árvore
     avl_imprimir_aux(raiz->dir);
 }

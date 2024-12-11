@@ -33,28 +33,26 @@ int main(void){
     scanf("%d", &operacao);
     
     switch(operacao){
-        case 1:{
-            printf("Digite o valor que deseja verificar se pertence ao conjunto\n");
+        case 1:{//pertencimento ao conjunto 1
             scanf("%d", &x);
             if(conjunto_pertence(CT1, x)){
-                printf("O valor %d pertence ao conjunto\n", x);
+                printf("Pertence.", x);
             }else{
-                printf("O valor %d não pertence ao conjunto\n", x);
+                printf("Nao pertence.", x);
             }
             break;
         }
-        case 2:{
+        case 2:{// uniao
             CONJUNTO *uniao = conjunto_uniao(CT1, CT2);
             conjunto_imprimir(uniao);
             break;
         }
-        case 3:{
+        case 3:{// interseccao
             CONJUNTO *interseccao = conjunto_interseccao(CT1, CT2);
             conjunto_imprimir(interseccao);
             break;
         }
-        case 4:{
-            printf("Digite o valor que deseja remover do conjunto\n");
+        case 4:{// remocao
             scanf("%d", &x);
             conjunto_remover(CT1, x);
             conjunto_imprimir(CT1);
