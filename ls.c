@@ -21,6 +21,8 @@ LS* ls_criar(){//criamos uma lista sequencial com um malloc de 1000 inteiros já
     return lista_sequencial_nova;
 }
 
+
+
 void encontrar_posicao_pra_insercao(LS* ls, int valor, int** pos) {//busca binária para encontrar a posição de inserção
     int inicio = 0;
     int fim = ls->qtd_itens - 1;
@@ -47,7 +49,7 @@ bool ls_inserir(LS* ls, int valor){
     int* posicao = malloc(sizeof(int));
     encontrar_posicao_pra_insercao(ls, valor, &posicao);//O(log2(n))
 
-    if (posicao ==NULL) {//se ja existe
+    if (posicao ==NULL || *posicao == -1) {//se ja existe
         free(posicao);
         return false;
     }
@@ -82,7 +84,7 @@ bool ls_excluir(LS* ls, int valor){
     int* posicao = malloc(sizeof(int));
     busca_binaria_por_index(ls, valor, &posicao);
 
-    if (posicao == NULL){
+    if (posicao == NULL || *posicao == -1){
         free(posicao);
         return false;
     } 
@@ -99,7 +101,7 @@ bool ls_pertence(LS* ls, int chave){
     if(ls==NULL) return false;
     int* posicao = malloc(sizeof(int));
     busca_binaria_por_index(ls, chave, &posicao);
-    if (posicao == NULL){
+    if (posicao == NULL || *posicao == -1){
         free(posicao);
         return false;
     }
