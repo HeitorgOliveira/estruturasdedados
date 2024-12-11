@@ -260,7 +260,7 @@ void avl_imprimir_aux(NO *raiz){
     // percorremos a esquerda da árvore
     avl_imprimir_aux(raiz->esq);
     // Visitamos o nó exibindo o valor de seu número
-    printf("Número: %d\n", raiz->numero);
+    printf("%d ", raiz->numero);
     // percorremos a esquerda da árvore
     avl_imprimir_aux(raiz->dir);
 }
@@ -269,6 +269,8 @@ void avl_imprimir_aux(NO *raiz){
 // para isso chamamos a função auxiliar avl_imprimir_aux().
 void avl_imprimir(AVL *T){
     if (T == NULL || T->raiz == NULL) return;
+    
+    
     avl_imprimir_aux(T->raiz);
 }
 
@@ -285,7 +287,9 @@ bool avl_pertence(AVL *T, int chave){
 // A função auxiliar avl_uniao_aux() preenche a árvore T com os elementos da árvore que contenha o nó raiz
 // Assim ela auxilia na função união pois colocamos todos os elementos de uma árvore original na árvore destino.
 void avl_uniao_aux(AVL *T, NO *raiz){
-    if (raiz == NULL) return;
+    if (raiz == NULL) {
+        return;
+    }
     // Aqui decidi por usar um percurso em-ordem para variar o uso de percursos, mas qualquer um dos três percursos
     // em-ordem pos-ordem pre-ordem funcionam.
     avl_uniao_aux(T, raiz->esq);

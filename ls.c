@@ -11,12 +11,13 @@ struct ls{
 };
 
 LS* ls_criar(){
-    int tam=1000;
+    int tam=100;
     int* vetorNovo = malloc(sizeof(int)*tam);
     LS* lista_sequencial_nova = malloc(sizeof(LS));
     lista_sequencial_nova->vetor = vetorNovo;
     lista_sequencial_nova->tamanho = tam;
     lista_sequencial_nova->qtd_itens = 0;
+
     return lista_sequencial_nova;
 }
 
@@ -114,9 +115,11 @@ void ls_imprimir(LS* ls){
 }
 
 bool ls_insere_em_avl(AVL* avl, LS* ls){
+    
     if(avl==NULL) return false;
     for(int i=0; i<ls->qtd_itens; i++){
         avl_inserir(avl, ls->vetor[i]);
+        
     }
 }
 

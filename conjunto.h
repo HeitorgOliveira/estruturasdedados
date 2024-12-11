@@ -12,5 +12,6 @@
   bool conjunto_pertence(CONJUNTO *A, int elemento);
   CONJUNTO *conjunto_uniao(CONJUNTO *A, CONJUNTO *B);
   CONJUNTO *conjunto_interseccao(CONJUNTO *A, CONJUNTO *B);
+  void verificar_se_tem_ls(CONJUNTO* s);
   
 #endif
